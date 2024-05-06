@@ -212,7 +212,7 @@ def eval_epoch(
 
         val_meter.data_toc()
 
-        predictions = model(inputs)
+        predictions = model(inputs)[0]
 
         if cfg.DATA.MULTI_LABEL:
             if cfg.NUM_GPUS > 1:

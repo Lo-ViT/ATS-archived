@@ -24,6 +24,10 @@ conda activate efficient-transformer
 
 Open the directory with VSCode. `Ctrl + Shift + P`, select interpreter, choose `efficient-transformer`. 
 
+To debug the training process, click on `Run &  Debug`, choose `Debug Train`.
+
+Take a look at `.vscode/launch.json` to change the run parameters of your process.
+
 # Set up TinyImageNet
 
 Create a local directory, download and unzip the data

@@ -1,6 +1,6 @@
 # Set up project
 
-For setup on your local computer, see [README.LOCAL.md](README.LOCAL.md).
+For setup on your local computer, see [README.LOCAL.md](README.LOCAL.md). It's recommended to have a set up on your local computer for debugging purpose. For fast debug, only use a subset of the data.
 
 For setup on university's cluster, see [README.CLUSTER.md](README.CLUSTER.md).
 

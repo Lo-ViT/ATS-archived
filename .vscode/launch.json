@@ -1,0 +1,19 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Debug Train",
+            "type": "python",
+            "request": "launch",
+            "module": "tools.run_net",
+            "console": "integratedTerminal",
+            "args": [
+                "--do",
+                "train",
+                "--custom_config",
+                "libs.config.experiment0003",
+                "--nowandb"
+            ]
+        }
+    ]
+}

@@ -13,5 +13,5 @@ def add_custom_config(_C):
         )
     
     # Change your hyper-parameters here if needed
-    
+    _C.TRAIN.EVAL_PERIOD = 1
     return _C
