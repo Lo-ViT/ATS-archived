@@ -1,3 +1,18 @@
+# Table of content
+
+- [Table of content](#table-of-content)
+- [Set up project](#set-up-project)
+- [Set up wandb](#set-up-wandb)
+    - [Turn off wandb](#turn-off-wandb)
+- [Test your setup](#test-your-setup)
+- [Start new experiment](#start-new-experiment)
+    - [Create a new branch](#create-a-new-branch)
+    - [Create new/Edit current configuration file](#create-newedit-current-configuration-file)
+    - [Start the training](#start-the-training)
+    - [Evaluate the model's test accuracy](#evaluate-the-models-test-accuracy)
+    - [Evaluate the model's test GFLOPs](#evaluate-the-models-test-gflops)
+- [Contribute useful code to `main`](#contribute-useful-code-to-main)
+
 # Set up project
 
 For setup on your local computer, see [README.LOCAL.md](README.LOCAL.md). It's recommended to have a set up on your local computer for debugging purpose. For fast debug, only use a subset of the data.
@@ -14,17 +29,25 @@ On the terminal, login once with your API key
 wandb login
 ```
 
-### Turn of wandb
+### Turn off wandb
 
 Sometimes, you don't want to run WandB's logging. To disable wandb, add `--nowandb` when run `tools.run_net`.
 
+# Test your setup
+
+If you did everything correctly, the training can be started easily as 
+
+```bash
+python3 -m tools.run_net --do train --custom_config libs.config.experiment0004
+```
+
 # Start new experiment
 
-Open new branch if you want to edit code and start new experiment.
+Open new branch if you want to edit code and start new experiment. A good practice is change only one parameter at once and study how this one change effects the performance. You don't need to follow this practice at all, however it's recommended.
 
-A good practice is change only one parameter at once and study how this one change effects the performance. An exception is, you know what you are doing, and you want to change multiple parameters at once to get a new method run.
+When experimenting, it's also recommended to write down the results of each experiment. We document the progresses of everything with this sheet:
 
-If you want to try multiple values for a same parameter, it's okay to stay in the same branch.
+https://docs.google.com/spreadsheets/d/17NxbCdiB3WSJX_AVapdG8elrmUOYYIMxNQwbM1Xr_tA
 
 ### Create a new branch
 
@@ -65,18 +88,18 @@ The training can be started as
 python3 -m tools.run_net --do train --custom_config libs.config.experiment<nr>
 ```
 
-### Evaluate the model's accuracy
+### Evaluate the model's test accuracy
 
 ```bash
 python3 -m tools.run_net --do test --custom_config libs.config.experiment<nr>
 ```
-### Evaluate the model's FLOPs
+### Evaluate the model's test GFLOPs
 
 TODO
 
 # Contribute useful code to `main`
 
-We can follow the basic workflow: 
+Code for an individual experiment should not be merged back to main. If you want to contribute an useful code that you think could be beneficial for up-coming experiments, we follow the basic workflow: 
 - create a GitHub Issue.
 - create a new branch from main.
 - create a PR for the change and get approval from another teammate.
