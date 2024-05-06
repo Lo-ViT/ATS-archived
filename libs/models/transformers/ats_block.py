@@ -268,11 +268,11 @@ class AdaptiveTokenSampler(Attention):
 
             out_zero_mask = self.out_zero_mask.expand(B * out_mask_size, -1)
 
-            x = out_zero_mask.scatter(
-                0, sampler_output, x_prunned, reduce="add"
+            x = out_zero_mask.scatter_reduce(
+                0, sampler_output, x_prunned, reduce="sum"
             ).reshape((B, out_mask_size, C))
-            selected_x = out_zero_mask.scatter(
-                0, sampler_output, selected_x_prunned, reduce="add"
+            selected_x = out_zero_mask.scatter_reduce(
+                0, sampler_output, selected_x_prunned, reduce="sum"
             ).reshape((B, out_mask_size, C))
 
             policy = (

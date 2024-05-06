@@ -7,7 +7,7 @@ import sys
 
 import libs.utils.checkpoint as cu
 from libs.config.defaults import get_cfg
-
+import importlib
 
 def parse_args():
     """
@@ -46,17 +46,17 @@ def parse_args():
         type=str,
     )
     parser.add_argument(
-        "--cfg",
-        dest="cfg_file",
-        help="Path to the config file",
-        default="/home/mohsen/farnoush/ATS-ViT/configs/ImageNet/DeiT_S.yaml",
+        "--do",
+        dest="do",
+        help="{train, test}",
+        default="train",
         type=str,
     )
     parser.add_argument(
-        "opts",
+        "--custom_config",
         help="See libs/config/defaults.py for all options",
         default=None,
-        nargs=argparse.REMAINDER,
+        type=str,
     )
     if len(sys.argv) == 1:
         parser.print_help()
@@ -73,11 +73,18 @@ def load_config(args):
     # Setup cfg.
     cfg = get_cfg()
     # Load config from cfg.
-    if args.cfg_file is not None:
-        cfg.merge_from_file(args.cfg_file)
+    if args.do == "train":
+        cfg.TRAIN.ENABLE = True
+        cfg.TEST.ENABLE = False
+    elif args.do == "test":
+        cfg.TRAIN.ENABLE = False
+        cfg.TEST.ENABLE = True
+    else:
+        raise ValueError("do must be 'train' or 'test'")
     # Load config from command line, overwrite config from opts.
-    if args.opts is not None:
-        cfg.merge_from_list(args.opts)
+    if args.custom_config is not None:
+        custom_config = importlib.import_module(args.custom_config)
+        custom_config.add_custom_config(cfg)
 
     # Inherit parameters from args.
     if hasattr(args, "num_shards") and hasattr(args, "shard_id"):

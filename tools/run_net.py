@@ -1,8 +1,8 @@
 from libs.utils.misc import launch_job
 from libs.utils.parser import load_config, parse_args
-from test_net import test
-from train_net import train
-from visualization import visualize
+from tools.test_net import test
+from tools.train_net import train
+from tools.visualization import visualize
 import sys
 sys.path.append(".")
 
