@@ -58,6 +58,11 @@ def parse_args():
         default=None,
         type=str,
     )
+    parser.add_argument(
+        "--nowandb",
+        help="Turn off WANDB logging",
+        action="store_true"
+    )
     if len(sys.argv) == 1:
         parser.print_help()
     return parser.parse_args()
@@ -72,6 +77,9 @@ def load_config(args):
     """
     # Setup cfg.
     cfg = get_cfg()
+    # Turn off WAND logging if nowandb is set.
+    if args.nowandb:
+        cfg.WANDB.ENABLE = False
     # Load config from cfg.
     if args.do == "train":
         cfg.TRAIN.ENABLE = True

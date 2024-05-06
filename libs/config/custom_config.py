@@ -7,6 +7,7 @@ def add_custom_config(_C):
     # Add your own customized configs.
     home = str(Path.home())
     _C.TRAIN.DATASET = "TinyImageNet"
+    _C.TRAIN.BATCH_SIZE = 1024
     _C.OUTPUT_DIR = f"{home}/efficient-transformer-data/output"
     _C.VIT.NUM_CLASSES = 200
     _C.MODEL.NUM_CLASSES = 200

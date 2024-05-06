@@ -23,6 +23,7 @@ from fvcore.nn.precise_bn import get_bn_modules, update_bn_stats
 from libs.datasets import loader
 from libs.models import build_model
 from libs.utils.meters import TrainMeter, ValMeter
+import wandb
 
 logger = logging.get_logger(__name__)
 
@@ -167,6 +168,9 @@ def train_epoch(
     # Log epoch stats.
     train_meter.log_epoch_stats(cur_epoch)
     train_meter.reset()
+    
+    # Wandb
+    if cfg.WANDB.ENABLE: wandb.log({"train/loss": loss, "train/lr": lr, "train/top1_error": top1_err, "train/top5_error": top5_err})
 
 
 @torch.no_grad()
@@ -265,6 +269,9 @@ def eval_epoch(
         )
 
     val_meter.reset()
+    
+    # Wandb
+    if cfg.WANDB.ENABLE: wandb.log({"val/top1_error": top1_err, "val/top5_error": top5_err})
 
 
 def calculate_and_update_precise_bn(

@@ -8,7 +8,15 @@ Click [here](README.md) for the original README.md.
 
 # Set up wandb
 
-TODO
+On the terminal, login once with your API key
+
+```
+wandb login
+```
+
+### Turn of wandb
+
+Sometimes, you don't want to run WandB's logging. To disable wandb, add `--nowandb` when run `tools.run_net`.
 
 # Start new experiment
 

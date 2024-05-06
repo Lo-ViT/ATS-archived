@@ -1,6 +1,5 @@
-from torchvision import datasets, transforms
 from fvcore.common.registry import Registry
-
+from libs.datasets.tinyimagenet import build_tinyimagenet
 DATASET_REGISTRY = Registry("DATASET")
 DATASET_REGISTRY.__doc__ = """
 Registry for dataset.
@@ -20,21 +19,8 @@ def build_dataset(dataset_name, cfg, split):
         Dataset: a constructed dataset specified by dataset_name.
     """
     name = dataset_name
-    
-    # Define the path to the dataset directory
-    data_dir = cfg.DATA.PATH_TO_DATA_DIR
-    
     # Initialize the dataset based on the dataset name
     if name.lower() == 'tinyimagenet':
-        assert cfg.DATA.TRAIN_CROP_SIZE == cfg.DATA.TEST_CROP_SIZE == cfg.VIT.IMG_SIZE, "Train and test crop size must be equal."
-        if split in ['train', 'val', 'test']:
-            dataset_path = f"{data_dir}/{split}"
-            dataset = datasets.ImageFolder(dataset_path, transform=transforms.Compose([
-            transforms.Resize((cfg.DATA.TRAIN_CROP_SIZE, cfg.DATA.TRAIN_CROP_SIZE)),
-            transforms.ToTensor(),
-        ]))
-        else:
-            raise ValueError(f"Invalid split: {split}. Expected one of: 'train', 'val', 'test'.")
-        return dataset
+        return build_tinyimagenet(cfg=cfg, split=split)
     else:
         return DATASET_REGISTRY.get(name)(cfg=cfg, split=split)
