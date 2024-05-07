@@ -452,7 +452,7 @@ def train(cfg):
             )
 
             if is_best_epoch:
-                cu.save_checkpoint(
+                path_to_checkpoint = cu.save_checkpoint(
                     cfg.OUTPUT_DIR,
                     model,
                     optimizer,
@@ -460,6 +460,7 @@ def train(cfg):
                     cfg,
                     is_best_epoch,
                 )
+                wandb.log_artifact(path_to_checkpoint, name=cfg.EXPERIMENT_NAME, type='model') 
 
     if writer is not None:
         writer.close()

@@ -18,5 +18,4 @@ def add_custom_config(_C):
     _C.DATA.MEAN=[0.485, 0.456, 0.406]
     _C.DATA.STD=[0.229, 0.224, 0.225]
     _C.VIT.IMG_SIZE=64
-    _C.TEST.CHECKPOINT_FILE_PATH=f"{home}/efficient-transformer-data/models/default_custom_experiment_model.pth"
     return _C
